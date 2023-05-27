@@ -1,9 +1,1581 @@
 <!DOCTYPE html>
 <html>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-<body style="margin: 0;">
-    <iframe src="https://script.google.com/macros/s/AKfycbxwh6oblk2NFsLFaE-yK7Af4Qog6dHDwF2BTX3z6E6E-lsKrPlvTafI9c3p06dGmMDa/exec" frameborder="0" width="100%" height="1000px" style="height:100vh"></iframe>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=3.0" />
+
+    <style>
+        #main {
+          padding-top: 70px;
+        }
+
+        #main-tabs {
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        #main-tabs .tab {
+          width: calc(100%/3);
+        }
+
+        #sReset {
+            width: 100%;
+        }
+
+        .input-group .quantity-field {
+            width: 100px !important;
+            text-align: center;
+        }
+
+        #productList {
+            margin-bottom: 5rem;
+        }
+
+        .productItem img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+
+        #copyOrder {
+            width: 100%;
+        }
+
+        .mt-1 {
+            margin-top: 1rem;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        #summary {
+            margin-bottom: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main" class="main">
+      <div id="main-tabs">
+            <ul class="tabs">
+                <li class="tab col s6"><a class="active" href="#products">Sản phẩm</a></li>
+                <li class="tab col s6"><a href="#order-info">Thông tin</a></li>
+                <li class="tab col s6"><a id="summary-tab" class="" href="#summary">Tổng kết</a></li>
+            </ul>
+        </div>
+        <!-- #Main tabs -->
+
+        <div class="container">
+            <div id="products">
+                <div id="showPrice" class="row">
+                    <!-- <p class="center">Đơn hàng trên 1000.000đ CTV sẽ được chiết khấu 25%</p> -->
+                    <div class="col s6 m6">
+                        <div id="sum">
+                            <strong>Tổng:</strong>
+                            <span>0</span>
+                        </div>
+                    </div>
+
+                    <div class="col s6 m6">
+                        <div id="CTV">
+                            <strong>CTV:</strong>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!-- <i class="material-icons prefix">search</i> -->
+                        <input id="sInputSearch" type="text" onkeyup="filterProducts()">
+                        <label for="sInputSearch">Nhập tên viết tắt của sản phẩm cần tìm</label>
+                    </div>
+                    <div class="col s12">
+                        <button id="sReset" class="waves-effect waves-light btn-large">Xoá SP đang tìm</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <table id="productList">
+
+<!--
+    ================================================
+    ================================================
+-->
+
+
+
+
+<tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-16.jpg?v=1677652545000" />
+        <p class="name">ORIENTAL HERBAL SHOWER GEL - Gel tắm phục hồi thư giãn <br><br> 456.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-20.jpg?v=1679310926000" />
+        <p class="name">Aloe Vera  - Brightness Refresh Toner 100ml <br><br> 185.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan.jpg?v=1677331294000" />
+        <p class="name">Tỏi đen bao tử Linh Đan gói 500gr <br><br> 380.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-9-1677312437128.png?v=1677312469000" />
+        <p class="name">Nước cốt tỏi đen Linh Đan 300ml <br><br> 500.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-4-1677311703423.png?v=1677311781000" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan gói 500gr <br><br> 600.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-10551d56-c3c3-4d30-ac9d-93db694af82d.jpg?v=1677331638727" />
+        <p class="name">Tỏi đen 2 nhánh Linh Đan gói 500gr <br><br> 380.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-8-1677312533641.png?v=1677312564000" />
+        <p class="name">Nước cốt tỏi đen Linh Đan 30ml <br><br> 65.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-1-1677311516579.png?v=1677311523690" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan hộp 500gr <br><br> 650.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-10-1677312307104.png?v=1677312311000" />
+        <p class="name">Nước cốt tỏi đen Linh Đan Putin 500ml <br><br> 720.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-6-1677311292158.png?v=1677311297000" />
+        <p class="name">Tỏi đen Ngũ Phúc hũ 250g <br><br> 270.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/nu-o-c-co-t-500-chai-ba-u.jpg?v=1672122572617" />
+        <p class="name">Nước cốt tỏi đen Linh Đan hồ lô 500ml <br><br> 760.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-5-1677311213054.png?v=1677311217363" />
+        <p class="name">Tỏi đen Ngũ phúc hũ nhân 150g <br><br> 195.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/gel-tam-300-1676610594984.jpg?v=1679311015000" />
+        <p class="name">Gel Tắm Dinh Dưỡng Thiên Nhiên Bơ Nghệ Khoẻ Tự Nhiên 300ml <br><br> 210.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tam-be-1676611033822.jpg?v=1676611040000" />
+        <p class="name">Gel tắm em bé 3 in 1 Don't cry baby 300ml <br><br> 210.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/phu-bac-1676610480712.jpg?v=1679311058000" />
+        <p class="name">Dầu gội phủ bạc Khoẻ Tự Nhiên BLACK HAIR 200ml <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/goi-nam-300-1676611624968.jpg?v=1679311063000" />
+        <p class="name">Dầu gội dược liệu phục hồi nam giới Khoẻ Tự Nhiên 300ml <br><br> 175.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dera-nature-xa-duong.jpg?v=1679122808000" />
+        <p class="name">Xả dưỡng phục hồi Khoẻ Tự Nhiên 300ml <br><br> 195.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-combo-khang-khuan-bao-ve-gia-dinh-3-1684153182630.jpg?v=1684153187000" />
+        <p class="name">Combo Kháng Khuẩn Bảo Vệ Gia Đình <br><br> 299.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-combo-mua-he-sang-khoai.jpg?v=1684124474000" />
+        <p class="name">Combo Mùa Hè Sảng Khoái <br><br> 599.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-combo-toi-den.jpg?v=1684129718000" />
+        <p class="name">Combo Bồi Bổ Sức Khỏe, tăng Cường Đề Kháng <br><br> 1.199.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-combo-rang-ro-ngay-he-1-1684140898662.jpg?v=1684140902000" />
+        <p class="name">Combo Rạng rỡ ngày hè <br><br> 547.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-combo-cham-soc-nang-niu.jpg?v=1684139198000" />
+        <p class="name">Combo "Dành cho mẹ, chăm sóc nâng niu" <br><br> 505.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-goi-tam-tay-tinh-1679058041746.jpg?v=1683779363000" />
+        <p class="name">Bộ Gel Tắm & Dầu Gội Tẩy Tịnh 480ml <br><br> 725.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-buoi-dear-nature-1681297765789.jpg?v=1682400336000" />
+        <p class="name">Tinh dầu bưởi 10ml <br><br> 148.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-gel-tam-bo-nghe-2.jpg?v=1682580005000" />
+        <p class="name">Gel tắm dinh dưỡng thiên nhiên bơ nghệ NEW 2023 <br><br> 385.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-tam-30-m.jpg?v=1683100537000" />
+        <p class="name">Gel tắm dinh dưỡng Bơ Nghệ 30ml <br><br> 50.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-goi-30-m.jpg?v=1683100512000" />
+        <p class="name">HERBAL SHAMPOO - Dầu gội 30ml <br><br> 50.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/web-ktn-vuong-1681969067807.jpg?v=1681969071000" />
+        <p class="name">HERBAL CONDITIONER - Dầu xả 30ml <br><br> 50.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-cam-ngot-dear-nature-1681297690647.jpg?v=1681966701000" />
+        <p class="name">Tinh dầu cam ngọt 10ml <br><br> 128.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/4.jpg?v=1679061256000" />
+        <p class="name">Son dưỡng Tropical Taste Nature Lipbalm New look <br><br> 198.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/son-sap-dear-nature-holiday-limited.jpg?v=1677150655000" />
+        <p class="name">Son tơ sáp không chì Fruits Garden - 06 Holiday (phiên bản giới hạn) <br><br> 359.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/ginseng-4-in-1.jpg?v=1679310407000" />
+        <p class="name">Timeless - Silk & Ginseng Perfect Serum 4 in 1 <br><br> 519.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-11.jpg?v=1680275250000" />
+        <p class="name">Kem đánh răng thảo dược 150gr <br><br> 97.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-mui-gia-tet-ta-compressed.jpg?v=1679058427000" />
+        <p class="name">Xà Bông Mùi già tẩy tịnh 100gr <br><br> 97.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-24.jpg?v=1677652386000" />
+        <p class="name">HERBAL CONDITIONER - Dầu xả thảo dược phục hồi <br><br> 415.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-23.jpg?v=1679310427000" />
+        <p class="name">Gel Rửa mặt Flying Flowers 150ml <br><br> 219.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-6.jpg?v=1679310839000" />
+        <p class="name">Cotton Candy Perfect Cream 4 in 1 For Sensitive & Acne Skin <br><br> 629.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/mask-f869958c-a015-4b81-a518-2a99a4f008f2-1676123286340.jpg?v=1679310844000" />
+        <p class="name">Mặt nạ ủ dưỡng tóc cao cấp 200ml <br><br> 359.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-10.jpg?v=1679310866000" />
+        <p class="name">Dầu gội Tẩy Tịnh mùi già lá xông 480ml <br><br> 350.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-2.jpg?v=1679310903000" />
+        <p class="name">Brightening body lotion thuốc bắc cam thảo 200ml <br><br> 499.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-17.jpg?v=1679310918000" />
+        <p class="name">Gel tắm Tẩy Tịnh mùi già lá xông 480ml <br><br> 375.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-hoa-hong-dear-nature-1681297638416.jpg?v=1681966699000" />
+        <p class="name">Tinh dầu hoa hồng 10ml <br><br> 395.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-hoa-sen-dear-nature-1681297789409.jpg?v=1681966699000" />
+        <p class="name">Tinh dầu hoa sen 10ml <br><br> 135.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-que-dear-nature-1681297705170.jpg?v=1681966698000" />
+        <p class="name">Tinh dầu quế 10ml <br><br> 118.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tinh-dau-sa-chanh-dear-nature-1681297750623.jpg?v=1681966687000" />
+        <p class="name">Tinh dầu sả chanh 10ml <br><br> 105.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/6de5926be55e3f00664f-1676617639447.jpg?v=1681719508000" />
+        <p class="name">Sữa tắm lá Dân tộc cho mẹ sau sinh 320ml <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-tinh-chat-duong-toc.jpg?v=1680417955000" />
+        <p class="name">TINH CHẤT DƯỠNG TÓC - HAIR GROWTH TONIC NUÔI DƯỠNG TÓC BỒNG BỀNH <br><br> 188.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/715ea2b2-e07c-4e0f-86be-0c9a38948826.jpg?v=1678784715000" />
+        <p class="name">Combo phục hồi nuôi dưỡng tóc HERBAL 550ML <br><br> 795.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-3.jpg?v=1678784949000" />
+        <p class="name">Combo phục hồi tóc HERBAL SHAMPOO CONDITIONER 320ml <br><br> 565.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/goi-500-xa-300-1676610844251.jpg?v=1679308333000" />
+        <p class="name">Combo Dầu gội và Xả dưỡng dược liệu phục hồi Khỏe Tự Nhiên 500ml <br><br> 455.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/ho-tro-giam-tham-mun-dear-nature-5-1681035216624.jpg?v=1681035242000" />
+        <p class="name">Cotton Candy Perfect Serum 4 in 1 For Sensitive & Acne Skin 15ml <br><br> 345.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tay-trang-aloe-vera.jpg?v=1679308309000" />
+        <p class="name">Aloe Vera - Nước tẩy trang 200ml <br><br> 229.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-hoa-hong.jpg?v=1681042677000" />
+        <p class="name">Xà Bông Precious Garden Hoa Hồng 100gr <br><br> 189.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/2.jpg?v=1677150184000" />
+        <p class="name">Son dưỡng Tropical Taste Nature Lipbalm <br><br> 149.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/z4034812770647-989a9e253a137d74c5fd33a668559cce-1675138736583.jpg?v=1679309233000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Bồ Kết <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-dua.jpg?v=1679309265000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Bạc hà dầu dừa <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/f9faf4.jpg?v=1679061283000" />
+        <p class="name">Son tơ sáp không chì Fruits Garden <br><br> 359.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-mui-gia-55d6ed43-05eb-4483-aa37-2a5a6c71e90c.jpg?v=1679309938000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Mùi già Tết Ta <br><br> 53.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/z4034812706740-54aaf7461bfa083595db5807759d0471-1675138693919.jpg?v=1676174602900" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Hoa cỏ <br><br> 53.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/z4034812757496-5f907d135d769408bfd155beda1f1cf8-1675138756016-4437b3da-4d70-4caf-a40b-dff9a492b3d7.jpg?v=1675846525047" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Khổ qua - Tràm Trà <br><br> 53.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-sa-nghe.jpg?v=1681042745000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Sả nghệ <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-sap-ong.jpg?v=1681042792000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Sáp ong <br><br> 53.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-thao-moc.jpg?v=1679310127967" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Thảo mộc <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-trau-khong.jpg?v=1681459877000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Trầu không <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-1.jpg?v=1679386084000" />
+        <p class="name">Xịt khử mùi miệng và cơ thể đa năng Quế Chi <br><br> 185.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-5.jpg?v=1679310216000" />
+        <p class="name">Bộ sản phẩm Tẩy Tịnh Mùi Già Lá Xông - Gel tắm gội xà bông thiên nhiên <br><br> 812.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-thien-nhien-oai-huong.jpg?v=1679310330133" />
+        <p class="name">Xà Bông Precious Garden Oải hương 100gr <br><br> 189.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-xa-bong-que-chi.jpg?v=1681459669000" />
+        <p class="name">Xà Bông Thảo Dược Orient Treasure Quế chi <br><br> 87.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-14.jpg?v=1680587756000" />
+        <p class="name">Dầu gội phủ bạc Khoẻ Tự Nhiên BLACK HAIR 400ml <br><br> 425.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-12.jpg?v=1679310353000" />
+        <p class="name">Timeless - Silk & Ginseng Perfect Cream 4 in 1 <br><br> 588.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-9.jpg?v=1677652080000" />
+        <p class="name">HERBAL SHAMPOO - Dầu gội thảo dược phục hồi <br><br> 397.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/son-kem-li-dear-nature.jpg?v=1677151545000" />
+        <p class="name">Son kem lì Annie Matte Lip cream 4ml <br><br> 298.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/5.jpg?v=1679061230000" />
+        <p class="name">Son kem lì Annie Matte Lip cream 5ml <br><br> 319.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-21.jpg?v=1679310359000" />
+        <p class="name">Active Toner Flying Flowers 150ml <br><br> 278.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-19.jpg?v=1679310366000" />
+        <p class="name">Tẩy trang Flying Flowers 200ml <br><br> 259.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/7.jpg?v=1677149222000" />
+        <p class="name">Express makeup stick - BLING BLING ALL IN ONE <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-8.jpg?v=1679310397000" />
+        <p class="name">Timeless - Silk & Ginseng Perfect Foundation 5 in 1 <br><br> 556.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-13-1677311351381.png?v=1677311413000" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan nhân hũ 250gr <br><br> 350.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-3-1677311798851.png?v=1677311806000" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan gói 250gr <br><br> 300.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-14-1677311444547.png?v=1677311470000" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan hũ 200gr <br><br> 280.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/toi-den-linh-dan-af640f6e-bfcf-4e8c-a8b0-c1543ac0cb14.jpg?v=1677331402000" />
+        <p class="name">Tỏi đen Cô Đơn Linh Đan gói 125gr <br><br> 160.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/ferfect-daily.jpg?v=1679310944000" />
+        <p class="name">Kem dưỡng đa năng Perfect Daily Cream Dưỡng ẩm - Make up - Chống nắng 40ml <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/combo-goi-xa-100-1676611347100.jpg?v=1676611359000" />
+        <p class="name">Combo Dầu gội và Xả dưỡng dược liệu phục hồi Khỏe Tự Nhiên 100ml <br><br> 140.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/sun-cream-1676611060548.jpg?v=1679112510000" />
+        <p class="name">Kem chống nắng 3 IN 1 nâng tông make up SPF50 PA+++ 50ml <br><br> 250.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/goi-nua-500.jpg?v=1679115842000" />
+        <p class="name">Dầu gội dược liệu phục hồi Khoẻ Tự Nhiên 500ml <br><br> 265.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/ddvs.jpg?v=1679310997000" />
+        <p class="name">Dung dịch vệ sinh Charming Lady Khoẻ Tự Nhiên 100ml <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/dear-nature-rua-mat-nha-dam.jpg?v=1681722014000" />
+        <p class="name">Aloe Vera Natural Facial Wash - Gel rửa mặt 100ml <br><br> 145.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/remover-1676609098080.jpg?v=1679311005633" />
+        <p class="name">Nước tẩy trang Make Up Remover Khoẻ Tự Nhiên 200ml <br><br> 195.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+    <tr class="productItem">
+    <td>
+        <img width="480" height="480" src="https://bizweb.dktcdn.net/thumb/large/100/452/346/products/tam-500-1676610539408.jpg?v=1679311010000" />
+        <p class="name">Gel Tắm Dinh Dưỡng Thiên Nhiên Bơ Nghệ Khoẻ Tự Nhiên 500ml <br><br> 295.000₫</p>
+        <div class="input-group">
+            <input type="button" value="-" class="btn button-minus" data-field="quantity">
+            <input type="number" step="1" max="" value="0" name="quantity" class="quantity-field">
+            <input type="button" value="+" class="btn button-plus" data-field="quantity">
+        </div>
+    </td>
+    </tr>
+    
+
+
+
+
+ 
+<!--
+    ================================================
+    ================================================
+-->
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="order-info">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" id="autocomplete-ctv" class="uautocomplete">
+                        <label for="autocomplete-input">Cộng tác viên</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="tenkh" type="text">
+                    <label for="tenkh">Tên Khách hàng</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input id="sdtkh" type="number">
+                    <label for="sdtkh">Số điện thoại của khách hàng</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="dckh" class="materialize-textarea"></textarea>
+                        <label for="dckh">Địa chỉ của khách hàng</label>
+                        <span class="helper-text" data-error="wrong" data-success="right">Ghi rõ địa chỉ (số
+                            nhà/tên đường, quận/huyện, phường/xã, tỉnh/thành...).</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="phuongThucThanhToan" class="browser-default">
+                            <option value="" disabled selected>Lựa chọn phương thức thanh toán</option>
+                            <option value="Chuyển khoản">Chuyển khoản</option>
+                            <!-- <option value="CK - CTV">CK - CTV</option> -->
+                            <option value="COD - Trả tiền khi nhận hàng">COD - trả tiền khi nhận hàng</option>
+                        </select>
+                        <!-- <label>Phương thức thanh toán</label> -->
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="number" id="cuocVanChuyen" placeholder="VD: 20000">
+                        <label for="cuocVanChuyen">Cước vận chuyển</label>
+                        <!-- <span class="helper-text">Miễn phí vẩn chuyển với những đơn có tổng giá trị lớn hơn 1.000.000đ -->
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <textarea id="ghiChu" class="materialize-textarea"></textarea>
+                        <label for="ghiChu">Ghi chú</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 m6 mt-1">
+                        <label>
+                            <input id="hoaSenTaiLieu" type="checkbox" value="Tặng hoa sen + tài liệu" />
+                            <span>Tặng hoa sen + tài liệu</span>
+                        </label>
+                    </div>
+
+                    <div class="col s12 m6 mt-1">
+                        <label>
+                            <input id="voucher100" type="checkbox" value="Tặng 1 voucher 100K" />
+                            <span>Tặng 1 voucher 100K</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="summary">
+                <div class="row">
+                    <div class="col s12">
+                        <button id="copyOrder" class="btn waves-effect waves-light btn-large mt-2">Copy đơn hàng</button>
+                    </div>
+                    <div class="col s12 inner mt-2"></div>
+                </div>
+            </div>
+
+        </div>
+        <!-- container -->
+
+    </div>
+    <!-- #main -->
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script>
+        var CTVCK = 0;
+
+        // Hàm hỗ trợ
+        function copyToClipboard(text) {
+            var $temp = $("<textarea></textarea>");
+            $("body").append($temp);
+            $temp.val(text).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+        // function rutGonTenSP(str) {
+        //     // console.log(str);
+        //     let newArr = str.split(/\s/);
+        //     let result = newArr.reduce((response, word) => response += word.slice(0, 1), '');
+        //     let lastArr = newArr.pop()
+        //     if (/\d/.test(lastArr)) {
+        //         newArr = newArr.reduce((response, word) => response += word.slice(0, 1), '');
+        //         lastArr = lastArr.replace(/\D/g, '');
+        //         result = newArr.concat(lastArr);
+        //     }
+
+        //     console.log(result);
+        //     return result;
+        // }
+
+        function getToday() {
+            let today = new Date();
+            let dd = today.getDate();
+
+            let mm = today.getMonth() + 1;
+            let yyyy = today.getFullYear();
+            if (dd < 10) { dd = '0' + dd }
+
+            if (mm < 10) { mm = '0' + mm }
+
+            today = dd + '-' + mm + '-' + yyyy;
+            return today;
+        }
+
+        function showPrice() {
+            productList = [];
+            let sum = 0;
+            let cuocVanChuyen = Number($("#cuocVanChuyen").val());
+            $(".productItem").each(function () {
+                let t = $(this);
+                let quantity = t.find(".quantity-field").val();
+                let nameArr = t.find(".name").text().split(" ");
+                let price = nameArr.pop().replace(/\D/g, '');
+                let name = nameArr.join(" ");
+                
+                if (quantity > 0) {
+                    sum += quantity * price;
+                    const newProduct = new product(name, price, quantity);
+                    productList.push(newProduct);
+                }
+
+            });
+
+            let ctv = 0;
+            if (sum < 1000000) {
+                ctv = sum * (20 / 100);
+            } else {
+                ctv = sum * (25 / 100);
+                cuocVanChuyen = 0;
+            }
+
+            CTVCK = Number(sum - ctv + cuocVanChuyen).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
+
+            sum = sum.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            ctv = ctv.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            $("#showPrice #sum span").text(sum);
+            $("#showPrice #CTV span").text(ctv);
+            // console.log(sum);
+        }
+
+        // Xoa filter san pham dang tim kiem
+        document.getElementById("sReset").addEventListener("click", resetSearchPrudct);
+
+        function resetSearchPrudct() {
+            document.getElementById("sInputSearch").value = '';
+            filterProducts();
+            M.updateTextFields();
+        }
+
+        // Filter product
+        function filterProducts() {
+            let sInput = document.getElementById("sInputSearch");
+            let sInputValue = sInput.value;
+            let filter = sInputValue.trim().toUpperCase().split(" ");
+            let productItem = document.querySelectorAll("#productList .productItem");
+
+            for (let i = 0; i < productItem.length; i++) {
+                let txtValue = productItem[i].getElementsByClassName("name")[0].innerText.replace(/\.|\-/gi, "").toUpperCase();
+                let flag = true;
+                filter.forEach(function (item) {
+                    if (!txtValue.includes(item)) {
+                        flag = false;
+                    };
+                });
+
+                if (flag) {
+                    productItem[i].style.display = "";
+                } else {
+                    productItem[i].style.display = "none";
+                }
+
+            }
+        }
+
+
+        // Tabs 
+        var el = document.querySelectorAll('.tabs');
+        var instance = M.Tabs.init(el);
+
+        // CTV
+        // var options = {
+        //     "Anh Quân": null,
+        //     "Anh Phương": null,
+        //     "Bich Ba": null,
+        //     "Đào Huyền": 'https://placehold.it/250x250'
+        // };
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var elems = document.getElementById("autocomplete-ctv");
+        //     //console.log(elems);
+        //     var instances = M.Autocomplete.init(elems, { data: options });
+        // });
+
+        // // All select tag
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var elems = document.querySelectorAll('select');
+        //     var instances = M.FormSelect.init(elems, options);
+        // });
+
+        //
+        function incrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal)) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        function decrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal) && currentVal > 0) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        $('.input-group').on('click', '.button-plus', function (e) {
+            incrementValue(e);
+            showPrice();
+            // console.log(productList);
+        });
+
+        $('.input-group').on('click', '.button-minus', function (e) {
+            decrementValue(e);
+            showPrice();
+            // console.log(productList);
+        });
+
+        // Lấy thông tin
+        var productList = [];
+
+        function product(name, price, quantity) {
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+        }
+
+        $(".quantity-field").change(function () {
+            // alert("The text has been changed.");
+            showPrice();
+            // console.log(productList);
+        });
+
+        $("#summary-tab").click(function () {
+            console.clear();
+            showPrice();
+
+            let ctv = $("#autocomplete-ctv").val();
+            let tenkh = $("#tenkh").val();
+            let sdtkh = $("#sdtkh").val();
+            let dckh = $("#dckh").val();
+            // let thongTinKH = $("#thongTinKH").val();
+            // let thongTinKHArr = thongTinKH.split("\n");
+            let phuongThucThanhToan = $('#phuongThucThanhToan').find(":selected").val();
+            // console.log(phuongThucThanhToan);
+            let cuocVanChuyen = Number($("#cuocVanChuyen").val());
+            let ghiChu = $("#ghiChu").val();
+            let checkbox = [];
+            $("#order-info [type='checkbox']").each(function () {
+                let t = $(this);
+                if (t.is(":checked")) {
+                    checkbox.push(t.val());
+                }
+            });
+
+            let productStringList = "";
+            let sumProductPrice = 0;
+            for (let i = 0; i < productList.length; i++) {
+                let product = productList[i];
+                let quantity = product.quantity;
+                let name = product.name;
+                let price = Number(product.price);
+                let price1 = price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                let pricetotal = quantity * price;
+                let pricetotal1 = pricetotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
+
+                productStringList += quantity + " " + name + " x " + price1 + " = " + pricetotal1 + "\n";
+                sumProductPrice += pricetotal;
+            }
+
+            // if (sumProductPrice > 1000000) {
+            //     cuocVanChuyen = 0;
+            // }
+
+            let thongTin = "";
+            thongTin += "Đơn ngày: " + getToday();
+            thongTin += "\n\n" + "CTV: " + ctv;
+            thongTin += "\n\n" + "Thông tin khách hàng:\n" + tenkh + "\n" + sdtkh + "\n" + dckh + "\n" ;
+            thongTin += "\n\n" + "Sản phẩm:\n" + productStringList;
+            thongTin += "Tổng tiền SP: " + sumProductPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            thongTin += "\n\n" + "Phí vận chuyển: " + cuocVanChuyen.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            thongTin += "\n\n" + "Tổng: " + (sumProductPrice + cuocVanChuyen).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            thongTin += "\n\n" + "Phương thức thanh toán: " + phuongThucThanhToan;
+            thongTin += "\n\n" + "Quà Tặng:\n" + checkbox.join("\n");
+            thongTin += "\n\n" + "Ghi chú:\n" + ghiChu;
+            console.log(thongTin);
+
+            $("#copyOrder").click(function () {
+                copyToClipboard(thongTin);
+            });
+
+
+            let thongTinHTML = $("#summary .inner").text(thongTin);
+            thongTinHTML.html(thongTinHTML.html().replace(/\n/g, '<br/>'));
+
+            let phanTramCTV = "20%";
+
+            if (sumProductPrice > 1000000) {
+                phanTramCTV = "25%";
+            }
+
+            let chuY = `
+            <br><hr><br><b>Chú ý:</b> 
+            <p>Mỗi đơn hàng CTV sẽ nhận được 20% (với đơn hàng trên 1.000.000đ CTV sẽ được nhận 25%) tổng giá trị tiền hàng.</p>
+            <br>
+            <p>Tổng tiền hàng: ${sumProductPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
+            <p>Phần trăm CTV nhận được: ${phanTramCTV} = ${((sumProductPrice * phanTramCTV.replace(/\D/g, '')) / 100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
+            <p>Tiền ship: ${cuocVanChuyen.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
+            `;
+
+            if ("Chuyển khoản" == phuongThucThanhToan) {
+                chuY += `<p style="color:red">Số tiền CTV phải chuyển khoản là <strong>${CTVCK}</strong></p>
+                <p>Nếu đơn hàng chọn phương thức thanh toán là chuyển khoản thì số tiền CTV phải chuyển khoản bằng tổng tiền hàng trừ đi số phần trăm CTV nhận được công với tiền ship. </p>`;
+            }
+            $(chuY).appendTo('#summary .inner');
+
+
+        });
+
+
+
+    </script>
+
+
 </body>
+
 </html>
