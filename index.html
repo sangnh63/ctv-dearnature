@@ -80,7 +80,7 @@
         <div class="container">
             <div id="products">
                 <div id="showPrice" class="row">
-                    <!-- <p class="center">Đơn hàng trên 1000.000đ CTV sẽ được chiết khấu 25%</p> -->
+                    <!-- <p class="center">Đơn hàng trên 2.500.000đ CTV sẽ được chiết khấu 25%</p> -->
                     <div class="col s6 m6">
                         <div id="sum">
                             <strong>Tổng:</strong>
@@ -1357,11 +1357,13 @@
             });
 
             let ctv = 0;
-            if (sum < 1000000) {
+            let percent = "(20%)";
+            if (sum < 2500000) {
                 ctv = sum * (20 / 100);
             } else {
                 ctv = sum * (25 / 100);
-                cuocVanChuyen = 0;
+                percent = "(25%)";
+                // cuocVanChuyen = 0;
             }
 
             CTVCK = Number(sum - ctv + cuocVanChuyen).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
@@ -1369,7 +1371,7 @@
             sum = sum.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             ctv = ctv.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             $("#showPrice #sum span").text(sum);
-            $("#showPrice #CTV span").text(ctv);
+            $("#showPrice #CTV span").text(ctv + " " + percent);
             // console.log(sum);
         }
 
@@ -1549,13 +1551,13 @@
 
             let phanTramCTV = "20%";
 
-            if (sumProductPrice > 1000000) {
+            if (sumProductPrice > 2500000) {
                 phanTramCTV = "25%";
             }
 
             let chuY = `
             <br><hr><br><b>Chú ý:</b> 
-            <p>Mỗi đơn hàng CTV sẽ nhận được 20% (với đơn hàng trên 1.000.000đ CTV sẽ được nhận 25%) tổng giá trị tiền hàng.</p>
+            <p>Mỗi đơn hàng CTV sẽ nhận được 20% (với đơn hàng trên 2.500.000đ CTV sẽ được nhận 25%) tổng giá trị tiền hàng.</p>
             <br>
             <p>Tổng tiền hàng: ${sumProductPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
             <p>Phần trăm CTV nhận được: ${phanTramCTV} = ${((sumProductPrice * phanTramCTV.replace(/\D/g, '')) / 100).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
