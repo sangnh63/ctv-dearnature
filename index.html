@@ -1531,14 +1531,19 @@
             let thongTin = "";
             thongTin += "Đơn ngày: " + getToday();
             thongTin += "\n\n" + "CTV: " + ctv;
-            thongTin += "\n\n" + "Thông tin khách hàng:\n" + tenkh + "\n" + sdtkh + "\n" + dckh + "\n" ;
+            thongTin += "\n\n" + "Thông tin khách hàng:\n" + tenkh + "\n" + sdtkh + "\n" + dckh ;
             thongTin += "\n\n" + "Sản phẩm:\n" + productStringList;
             thongTin += "Tổng tiền SP: " + sumProductPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             thongTin += "\n\n" + "Phí vận chuyển: " + cuocVanChuyen.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             thongTin += "\n\n" + "Tổng: " + (sumProductPrice + cuocVanChuyen).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             thongTin += "\n\n" + "Phương thức thanh toán: " + phuongThucThanhToan;
-            thongTin += "\n\n" + "Quà Tặng:\n" + checkbox.join("\n");
-            thongTin += "\n\n" + "Ghi chú:\n" + ghiChu;
+            if(checkbox.length > 0) {
+                thongTin += "\n\n" + "Quà Tặng:\n" + checkbox.join("\n");
+            }
+            if(ghiChu) {
+                thongTin += "\n\n" + "Ghi chú:\n" + ghiChu;
+            }
+            
             console.log(thongTin);
 
             $("#copyOrder").click(function () {
@@ -1556,7 +1561,7 @@
             }
 
             let chuY = `
-            <br><hr><br><b>Chú ý:</b> 
+            <br><br><hr><br><b>Chú ý:</b> 
             <p>Mỗi đơn hàng CTV sẽ nhận được 20% (với đơn hàng trên 2.500.000đ CTV sẽ được nhận 25%) tổng giá trị tiền hàng.</p>
             <br>
             <p>Tổng tiền hàng: ${sumProductPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </p>
