@@ -1615,6 +1615,18 @@
             return today;
         }
 
+        function compare( a, b ) {
+            if ( a.name < b.name ){
+                return -1;
+            }
+            if ( a.name > b.name ){
+                return 1;
+            }
+            return 0;
+}
+
+
+
         function showPrice() {
             productList = [];
             let sum = 0;
@@ -1633,6 +1645,9 @@
                 }
 
             });
+
+            productList.sort( compare );
+            
 
             let ctv = 0;
             let percent = "(20%)";
@@ -1772,7 +1787,7 @@
         });
 
         $("#summary-tab").click(function () {
-            console.clear();
+            // console.clear();
             showPrice();
 
             let ctv = $("#autocomplete-ctv").val();
@@ -1804,7 +1819,7 @@
                 let pricetotal = quantity * price;
                 let pricetotal1 = pricetotal.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
 
-                productStringList += quantity + " " + name + " x " + price1 + " = " + pricetotal1 + "\n";
+                productStringList += quantity + " × " + name + " × " + price1 + " = " + pricetotal1 + "\n\n";
                 sumProductPrice += pricetotal;
             }
 
@@ -1828,7 +1843,7 @@
                 thongTin += "\n\n" + "Ghi chú:\n" + ghiChu;
             }
             
-            console.log(thongTin);
+            // console.log(thongTin);
 
             $("#copyOrder").click(function () {
                 copyToClipboard(thongTin);
