@@ -1838,14 +1838,14 @@
                 ctv = sum * (20 / 100);
             }
             
-            if (sum >= 1000000 && sum < 5000000) {
+            // if (sum >= 1000000 && sum < 5000000) {
+            //     ctv = sum * (25 / 100);
+            //     percent = "(25%)";
+            // }
+            
+            if(sum >= 3000000) {
                 ctv = sum * (25 / 100);
                 percent = "(25%)";
-            }
-            
-            if(sum >= 5000000) {
-                ctv = sum * (30 / 100);
-                percent = "(30%)";
             }
 
             CTVCK = Number(sum - ctv + cuocVanChuyen).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });;
@@ -2038,17 +2038,17 @@
 
             let phanTramCTV = "20%";
 
-            // if (sumProductPrice > 2500000) {
-            //     phanTramCTV = "25%";
-            // }
-            
-            if (sumProductPrice >= 1000000 && sumProductPrice < 5000000) {
+            if (sumProductPrice > 3000000) {
                 phanTramCTV = "25%";
             }
             
-            if(sumProductPrice >= 5000000) {
-                phanTramCTV = "30%";
-            }
+            // if (sumProductPrice >= 3000000 && sumProductPrice < 5000000) {
+            //     phanTramCTV = "25%";
+            // }
+            
+            // if(sumProductPrice >= 5000000) {
+            //     phanTramCTV = "30%";
+            // }
 
             let chuY = `
             <br><br><hr><br><b>Chú ý:</b> 
